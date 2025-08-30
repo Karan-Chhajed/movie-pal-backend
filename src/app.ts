@@ -2,12 +2,15 @@ import express from "express";
 import dotenv from "dotenv";
 import axios from "axios";
 import {Request, Response,} from 'express'
+import { connectDB } from "./db";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
+
+app.use(express.json())
 
 export const TMDB_CONFIG = {
   BASE_URL: "https://api.themoviedb.org/3",
@@ -102,6 +105,9 @@ app.get("/api/:platform/:id/providers", async (req: Request, res: Response) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is up at ${PORT}`);
-});
+connectDB().then(() => {
+  app.listen(PORT, () => 
+  console.log(`Server is up at ${PORT}`));
+})
+
+
