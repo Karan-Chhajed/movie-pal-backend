@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface ISearchItem extends Document {
-    user_id: number;
+    user: number;
     search_term: string;
     title: string;
     poster_url: string;
@@ -12,7 +12,7 @@ export interface ISearchItem extends Document {
 }
 
 const searchItemSchema: Schema<ISearchItem> = new Schema ({
-    user_id: {type: Number, required: true },
+    user: {type: Number, required: true },
     search_term: { type: String, required: true },
     title: { type: String, required: true },
     poster_url: { type: String, required: true },

@@ -6,7 +6,7 @@ export interface AuthRequest extends Request {
 }
 
 export const protect = (req: AuthRequest, res: Response, next: NextFunction) => {
-    let token;
+    let token: string;
 
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
