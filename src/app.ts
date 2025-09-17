@@ -9,8 +9,6 @@ import tmdbRoutes from "./routes/tmdbRoutes";
 import userRoutes from './routes/userRoutes'
 
 dotenv.config();
-
-const PORT = process.env.PORT || 4000
 const app = express();
 app.use(express.json())
 
@@ -20,8 +18,4 @@ app.use('/api/watchlist', watchlistRoutes);
 app.use('/api/search', protect, searchRoutes)
 app.use('/api/review', protect, reviewRoutes);
 
-
-connectDB().then(() => {
-  app.listen(PORT, () => 
-  console.log(`Server is up at ${PORT}`));
-})
+export default app
