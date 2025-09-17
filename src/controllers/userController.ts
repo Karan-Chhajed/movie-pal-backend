@@ -16,8 +16,6 @@ export const registerUser = async (req: Request, res: Response) => {
             res.status(400).json({ error: "This email is already in use, try logging in!" })
         }
 
-        // if not, hash the password and register user
-
         const hashedPassword = await bcrypt.hash(password, 10)
 
         const createUser = new User({
