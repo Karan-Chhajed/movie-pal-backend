@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import { Request, Response } from "express";
 import { User } from '../models/User';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -43,7 +43,7 @@ export const loginUser =  async (req: Request, res: Response) => {
 
         const user = await User.findOne({ email});
         if(!user) {
-            res.status(400).json({ error: "User not found! Check your Email"})
+            return res.status(400).json({ error: "User not found! Check your Email"});
         }
 
         // check password
