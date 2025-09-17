@@ -29,10 +29,10 @@ export const registerUser = async (req: Request, res: Response) => {
 
         await createUser.save();
 
-        res.status(201).json({ message: 'User registered Successfully' })
+        return res.status(201).json({ message: 'User registered Successfully' })
 
     } catch (err) {
-        res.status(500).json({ error: "Oops! Server error " + err})
+        return res.status(500).json({ error: "Oops! Server error " + err})
     }
 };
 
@@ -60,9 +60,9 @@ export const loginUser =  async (req: Request, res: Response) => {
             process.env.JWT_SECRET || 'woahaha',
             {expiresIn: '1h'}
         );
-        res.json({ message: "Login Successful!", token });
+        return res.json({ message: "Login Successful!", token });
 
     } catch (err) {
-        res.status(500).json({ error: 'Oops! Server error: ' + err})
+        return res.status(500).json({ error: 'Oops! Server error: ' + err})
     }
 };

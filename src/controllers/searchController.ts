@@ -25,8 +25,8 @@ export const addToSearchList = async (req: AuthRequest, res: Response) => {
 
 export const getSearchList = async (req: AuthRequest, res: Response) => {
     try {
-        const page = parseInt(req.params.page as string) || 1
-        const limit = parseInt(req.params.limit as string) || 10
+        const page = parseInt(req.query.page as string) || 1
+        const limit = parseInt(req.query.limit as string) || 10
         
         const skip = (page - 1) * 10
 
@@ -37,7 +37,7 @@ export const getSearchList = async (req: AuthRequest, res: Response) => {
             SearchItem.countDocuments({ user: req.user!.id})
         ]);
 
-        res.status(200).json({
+        return res.status(200).json({
             page,
             limit,
             total,
@@ -45,6 +45,6 @@ export const getSearchList = async (req: AuthRequest, res: Response) => {
             items: list
         })
     } catch (err) {
-        res.status(500).json({ message: 'Error fetching search list: ' + err})
+        return res.status(500).json({ message: 'Error fetching search list: ' + err})
     }
 }

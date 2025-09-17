@@ -21,7 +21,7 @@ const handleError = (err: unknown, res: Response) => {
       .status(err.response?.status || 500)
       .json({ message: err.message });
   }
-  res.status(500).json({ message: "Oops! Internal Server Error" });
+  return res.status(500).json({ message: "Oops! Internal Server Error" });
 };
 
 export const getPopularMedia = async (req: Request, res: Response) => {
@@ -31,9 +31,9 @@ export const getPopularMedia = async (req: Request, res: Response) => {
     const response = await axios.get(fetchEndpoint, {
       headers: TMDB_CONFIG.headers,
     });
-    res.json(response.data);
+    return res.json(response.data);
   } catch (err) {
-    handleError(err, res);
+    return handleError(err, res);
   }
 }
 
@@ -45,9 +45,9 @@ export const getTrendingMedia = async (req: Request, res: Response) => {
     const response = await axios.get(fetchEndpoint, {
       headers: TMDB_CONFIG.headers,
     });
-    res.json(response.data);
+    return res.json(response.data);
   } catch (err) {
-    handleError(err, res);
+    return handleError(err, res);
   }
 }
 
@@ -59,9 +59,9 @@ export const getDetails = async (req: Request, res: Response) => {
     const response = await axios.get(fetchEndpoint, {
       headers: TMDB_CONFIG.headers,
     });
-    res.json(response.data);
+    return res.json(response.data);
   } catch (err) {
-    handleError(err, res);
+    return handleError(err, res);
   }
 }
 
@@ -79,9 +79,9 @@ export const getSearchMedia = async (req: Request, res: Response) => {
     const response = await axios.get(fetchEndpoint, {
       headers: TMDB_CONFIG.headers,
     });
-    res.json(response.data);
+    return res.json(response.data);
   } catch (err) {
-    handleError(err, res);
+    return handleError(err, res);
   }
 }
 
@@ -93,8 +93,8 @@ export const getMediaProviders = async (req: Request, res: Response) => {
     const response = await axios.get(fetchEndpoint, {
       headers: TMDB_CONFIG.headers,
     });
-    res.json(response.data);
+    return res.json(response.data);
   } catch (err) {
-    handleError(err, res);
+    return handleError(err, res);
   }
 }

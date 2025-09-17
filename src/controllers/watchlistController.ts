@@ -16,9 +16,9 @@ export const addToWatchlist = async (req: AuthRequest, res: Response) => {
             genres,
             poster_url
         })
-        res.status(201).json(item)
+        return res.status(201).json(item)
     } catch (err) {
-        res.status(500).json({message: 'Error creating watchlist item:' + err, media_id})
+        return res.status(500).json({message: 'Error creating watchlist item:' + err, media_id})
     }
 }
 
@@ -26,10 +26,10 @@ export const deleteFromWatchlist = async (req: AuthRequest, res: Response) => {
     const { media_id} = req.body
 
     try {
-        await WatchlistItem.findOneAndDelete({user_id: req.user!.id,  media_id});
-        res.json({ message: 'Watchlist item deleted', media_id})
+        await WatchlistItem.findOneAndDelete({user: req.user!.id,  media_id});
+        return res.json({ message: 'Watchlist item deleted', media_id})
     } catch (err) {
-        res.status(500).json({ message: 'Error deleteing item: ' + err, media_id})
+        return res.status(500).json({ message: 'Error deleteing item: ' + err, media_id})
     }
 }
 
@@ -49,7 +49,7 @@ export const getWatchlist = async (req: AuthRequest, res: Response) => {
             WatchlistItem.countDocuments({ user: req.user!.id})
         ])
 
-        res.json({
+        return res.json({
             page,
             limit,
             total,
@@ -57,6 +57,6 @@ export const getWatchlist = async (req: AuthRequest, res: Response) => {
             items: list
         })
     } catch (err) {
-        res.status(500).json({ message: "Error getting watchlist: " + err})
+        return res.status(500).json({ message: "Error getting watchlist: " + err})
     }
 }
